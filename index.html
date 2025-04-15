@@ -87,6 +87,21 @@
         font-size: 0.9rem;
         color: #555;
       }
+      .notification {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #333;
+        color: #fff;
+        padding: 15px 20px;
+        border-radius: 8px;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        z-index: 1000;
+      }
+      .notification.show {
+        opacity: 1;
+      }
   </style>
 </head>
 <body>
@@ -148,5 +163,18 @@
   <footer>
     &copy; 2025 Nutzy. All rights reserved.
   </footer>
+
+  <div class="notification" id="notification"></div>
+
+  <script>
+    function addToCart(productName) {
+      const notification = document.getElementById('notification');
+      notification.textContent = productName + " added to cart!";
+      notification.classList.add('show');
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+  </script>
 </body>
 </html>
