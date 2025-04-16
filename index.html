@@ -5,6 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nutzy - Snack Bliss</title>
   <style>
+    #splash-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+      
+      #splash-screen img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* This ensures the image fully covers the screen */
+        border-radius: 0;  /* Remove rounding if you want it to cover fully */
+        box-shadow: none;  /* Optional: remove the box-shadow if you don't want it */
+      }
+      
+      #splash-screen.hide {
+        opacity: 0;
+        pointer-events: none;
+      }
+      
+      
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -15,8 +43,12 @@
       text-align: center;
       padding: 50px 20px 20px;
     }
+    header h2{
+        font-size: 2rem;
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
     header h1 {
-        font-size: 10rem;
+        font-size: 5rem;
         margin: 0;
       }
       header p {
@@ -74,9 +106,13 @@
         background-color: darkorange;
       }
       .about p {
-        max-width: 800px;
+        max-width: 1000px;
         margin: 0 auto;
         line-height: 1.6;
+        color: #000000;
+        font-weight: 700;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 1.5rem;
       }
       .team p {
         margin: 10px 0;
@@ -85,7 +121,9 @@
         text-align: center;
         padding: 20px;
         font-size: 0.9rem;
-        color: #555;
+        color: #000000;
+        background-color: rgb(235, 233, 233);
+
       }
       .notification {
         position: fixed;
@@ -102,60 +140,87 @@
       .notification.show {
         opacity: 1;
       }
+      .team{
+        background-color: rgb(235, 233, 233);
+      }
+      @media (max-width: 992px) {
+        .about p {
+          font-size: 1.3rem;  
+          padding: 0 20px; 
+        }
+      }
+      
+      @media (max-width: 768px) {
+        .about p {
+          font-size: 1.2rem;  
+        }
+      
+        .team p {
+          font-size: 1rem;  
+          margin: 8px 0;  /* Less space between paragraphs */
+        }
+      }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Nutzy</h1>
-    <p>‘Snack bliss’</p>
-  </header>
-
-  <section class="products">
-    <h2>Our Flavours</h2>
-    <div class="product-list">
-      <div class="product">
-        <img src="./lemonjest.jpeg" alt="Lemon Zest & Pink Salt">
-        <h3>Lemon Zest & Pink Salt</h3>
-        <p>Price: ₹299</p>
-        <button onclick="addToCart('Lemon Zest & Pink Salt')">Add to Cart</button>
+    <div id="splash-screen">
+        <img src="./IMG_9818.jpeg" alt="Nutzy Splash" />
       </div>
-      <div class="product">
-        <img src="./dark.jpeg" alt="Dark Chocolate">
-        <h3>Dark Chocolate</h3>
-        <p>Price: ₹299</p>
-        <button onclick="addToCart('Dark Chocolate')">Add to Cart</button>
-      </div>
-      <div class="product">
-        <img src="./korean.jpeg" alt="Korean Sweet Chilli">
-        <h3>Korean Sweet Chilli</h3>
-        <p>Price: ₹299</p>
-        <button onclick="addToCart('Korean Sweet Chilli')">Add to Cart</button>
-      </div>
-      <div class="product">
-        <img src="./blackpepper.jpeg" alt="Black Pepper & Mint">
-        <h3>Black Pepper & Mint</h3>
-        <p>Price: ₹299</p>
-        <button onclick="addToCart('Black Pepper & Mint')">Add to Cart</button>
-      </div>
-      <div class="product">
-        <img src="./cinamon.jpeg" alt="Cinnamon & Rock Salt">
-        <h3>Cinnamon & Rock Salt</h3>
-        <p>Price: ₹299</p>
-        <button onclick="addToCart('Cinnamon & Rock Salt')">Add to Cart</button>
-      </div>
-    </div>
-  </section>
-
-  <section class="about">
-    <h2>About Us</h2>
-    <p>Welcome to Nutzy - Where Snacking Meets a Revolution. We’re not just a food brand, we’re a movement. At Nutzy, we’re on a mission to shake up your snack game with our bold, flavorful, and power-packed makhanas (foxnuts).<br><br>Guilt-free, crave-worthy, and crafted for the health-conscious hustler, our snacks blend ancient superfoods with modern taste. Whether you’re into classic vibes or bold new flavours, Nutzy’s got your back (and your taste buds).<br><br>One bite, and you’ll know - this isn’t just a snack. It’s an upgrade.</p>
-  </section>
-
+    <section id="hero" style="height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:linear-gradient(135deg, orange, yellow); text-align:center;">
+        <img src="./logo.jpeg" alt="Nutzy Logo" style="width:200px; height: 200px; border-radius:50%; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+        <h1 style="font-size:4rem; margin:20px 0 0;">Welcome To</h1>
+        <h1 style="font-size:6rem; margin:20px 0 0;">Nutzy</h1>
+        <p style="font-size:2rem; font-style:italic; color:#5e3700;">‘Snack bliss’</p>
+      </section>
+    <div id="mainContent">
+    <section class="products">
+        <h2>Our Flavours</h2>
+        <div class="product-list">
+          <div class="product">
+            <img src="./lemonjest.jpeg" alt="Lemon Zest & Pink Salt">
+            <h3>Lemon Zest & Pink Salt</h3>
+            <p>Price: ₹299</p>
+            <button onclick="addToCart('Lemon Zest & Pink Salt')">Add to Cart</button>
+          </div>
+          <div class="product">
+            <img src="./dark.jpeg" alt="Dark Chocolate">
+            <h3>Dark Chocolate</h3>
+            <p>Price: ₹299</p>
+            <button onclick="addToCart('Dark Chocolate')">Add to Cart</button>
+          </div>
+          <div class="product">
+            <img src="./korean.jpeg" alt="Korean Sweet Chilli">
+            <h3>Korean Sweet Chilli</h3>
+            <p>Price: ₹299</p>
+            <button onclick="addToCart('Korean Sweet Chilli')">Add to Cart</button>
+          </div>
+          <div class="product">
+            <img src="./blackpepper.jpeg" alt="Black Pepper & Mint">
+            <h3>Black Pepper & Mint</h3>
+            <p>Price: ₹299</p>
+            <button onclick="addToCart('Black Pepper & Mint')">Add to Cart</button>
+          </div>
+          <div class="product">
+            <img src="./cinamon.jpeg" alt="Cinnamon & Rock Salt">
+            <h3>Cinnamon & Rock Salt</h3>
+            <p>Price: ₹299</p>
+            <button onclick="addToCart('Cinnamon & Rock Salt')">Add to Cart</button>
+          </div>
+        </div>
+      </section>
+    
+      <section class="about">
+        <h2>About Us</h2>
+        <p>Welcome to Nutzy - Where Snacking Meets a Revolution. We’re not just a food brand, we’re a movement. At Nutzy, we’re on a mission to shake up your snack game with our bold, flavorful, and power-packed makhanas (foxnuts).<br><br>Guilt-free, crave-worthy, and crafted for the health-conscious hustler, our snacks blend ancient superfoods with modern taste. Whether you’re into classic vibes or bold new flavours, Nutzy’s got your back (and your taste buds).<br><br>One bite, and you’ll know - this isn’t just a snack. It’s an upgrade.</p>
+      </section>
+  </div>
   <section class="team">
-    <h2>People Involved</h2>
+    <h2>OUR TEAM</h2>
     <p><strong>Naina Singh </strong> - CEO <br></p>
     <p><strong>Tanvi Gupta</strong> - Marketing Head<br></p>
     <p><strong>Pranay Gupta</strong> - Operations Officer<br></p>
+    <p><strong>Naman Sharma</strong> - Chief Financial Officer<br></p>
+    <p><strong>Pragati Chowdhury</strong> - Business Head<br></p>
     <p>Email: <a href="mailto:tanvig0805@gmail.com">tanvig0805@gmail.com</a></p>
     <p>Location: 560076 - Bangalore, KA</p>
   </section>
@@ -165,8 +230,27 @@
   </footer>
 
   <div class="notification" id="notification"></div>
-
+  
   <script>
+    window.onload = function () {
+        setTimeout(() => {
+          const splash = document.getElementById("splash-screen");
+          splash.classList.add("hide");
+    
+          setTimeout(() => {
+            document.getElementById('mainContent').scrollIntoView({ behavior:"smooth"});
+          }, 750); 
+        }, 1500);
+      };
+    
+      function addToCart(productName) {
+        const notification = document.getElementById('notification');
+        notification.textContent = productName + " added to cart!";
+        notification.classList.add('show');
+        setTimeout(() => {
+          notification.classList.remove('show');
+        }, 3000);
+      }
     function addToCart(productName) {
       const notification = document.getElementById('notification');
       notification.textContent = productName + " added to cart!";
@@ -175,6 +259,7 @@
         notification.classList.remove('show');
       }, 3000);
     }
+    
   </script>
 </body>
 </html>
