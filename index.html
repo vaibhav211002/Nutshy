@@ -36,7 +36,7 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, orange, yellow);
+      background: linear-gradient(135deg, rgb(239, 211, 158), rgb(241, 241, 190));
       color: #333;
     }
     header {
@@ -125,19 +125,19 @@
         background-color: rgb(235, 233, 233);
 
       }
-      .notification {
+      #notification {
         position: fixed;
-        bottom: 20px;
+        top: 20px;
         right: 20px;
-        background: #333;
-        color: #fff;
-        padding: 15px 20px;
+        background: #4caf50;
+        color: white;
+        padding: 12px 24px;
         border-radius: 8px;
         opacity: 0;
-        transition: opacity 0.5s ease-in-out;
-        z-index: 1000;
+        transition: opacity 0.5s ease;
+        z-index: 9999;
       }
-      .notification.show {
+      #notification.show {
         opacity: 1;
       }
       .team{
@@ -223,6 +223,11 @@
     <p><strong>Pragati Chowdhury</strong> - Business Head<br></p>
     <p>Email: <a href="mailto:tanvig0805@gmail.com">tanvig0805@gmail.com</a></p>
     <p>Location: 560076 - Bangalore, KA</p>
+    <br>
+    <p>Developer:</p>
+    <a href="https://www.linkedin.com/in/vaibhav-bhatt-900b46210/" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" width="20" height="20">
+    </a>
   </section>
 
   <footer>
@@ -230,7 +235,8 @@
   </footer>
 
   <div class="notification" id="notification"></div>
-  
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
   <script>
     window.onload = function () {
         setTimeout(() => {
@@ -247,18 +253,19 @@
         const notification = document.getElementById('notification');
         notification.textContent = productName + " added to cart!";
         notification.classList.add('show');
+      
+        // 🎉 Confetti Animation
+        confetti({
+          particleCount: 1000,
+          spread: 700,
+          origin: { y: 0.1 }
+        });
+      
         setTimeout(() => {
           notification.classList.remove('show');
         }, 3000);
       }
-    function addToCart(productName) {
-      const notification = document.getElementById('notification');
-      notification.textContent = productName + " added to cart!";
-      notification.classList.add('show');
-      setTimeout(() => {
-        notification.classList.remove('show');
-      }, 3000);
-    }
+      
     
   </script>
 </body>
