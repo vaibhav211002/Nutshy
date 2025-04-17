@@ -213,6 +213,10 @@
         <h2>About Us</h2>
         <p>Welcome to Nutzy - Where Snacking Meets a Revolution. We’re not just a food brand, we’re a movement. At Nutzy, we’re on a mission to shake up your snack game with our bold, flavorful, and power-packed makhanas (foxnuts).<br><br>Guilt-free, crave-worthy, and crafted for the health-conscious hustler, our snacks blend ancient superfoods with modern taste. Whether you’re into classic vibes or bold new flavours, Nutzy’s got your back (and your taste buds).<br><br>One bite, and you’ll know - this isn’t just a snack. It’s an upgrade.</p>
       </section>
+      <div style="text-align: center; margin-top: 20px;">
+        <button onclick="openCart()" style="padding: 10px 20px; font-size: 1rem; background-color: #ff9800; color: white; border: none; border-radius: 8px; cursor: pointer;">View Cart / Checkout</button>
+      </div>
+      
   </div>
   <section class="team">
     <h2>OUR TEAM</h2>
@@ -229,7 +233,6 @@
       <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" width="20" height="20">
     </a>
   </section>
-
   <footer>
     &copy; 2025 Nutzy. All rights reserved.
   </footer>
@@ -238,35 +241,103 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <script>
+    let cart = [];
+  
     window.onload = function () {
+      setTimeout(() => {
+        const splash = document.getElementById("splash-screen");
+        splash.classList.add("hide");
+  
         setTimeout(() => {
-          const splash = document.getElementById("splash-screen");
-          splash.classList.add("hide");
+          document.getElementById('mainContent').scrollIntoView({ behavior:"smooth"});
+        }, 1000); 
+      }, 2000);
+    };
+  
+    function addToCart(productName) {
+      cart.push({ name: productName, price: 299 });
+      const notification = document.getElementById('notification');
+      notification.textContent = productName + " added to cart!";
+      notification.classList.add('show');
+  
+      confetti({
+        particleCount: 1000,
+        spread: 700,
+        origin: { y: 0.1 }
+      });
+  
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+  
+    function openCart() {
+      const modal = document.getElementById("cartModal");
+      const cartItemsDiv = document.getElementById("cartItems");
+      const totalAmount = document.getElementById("totalAmount");
+  
+      cartItemsDiv.innerHTML = "";
+  
+      let total = 0;
+      cart.forEach(item => {
+        cartItemsDiv.innerHTML += `<p><strong>${item.name}</strong> - ₹${item.price}</p>`;
+        total += item.price;
+      });
+  
+      totalAmount.textContent = "Total: ₹" + total;
+      modal.style.display = "flex";
+    }
+  
+    function closeCart() {
+      document.getElementById("cartModal").style.display = "none";
+    }
+    function fakePay() {
+      const cartItemsDiv = document.getElementById("cartItems");
+      const totalAmount = document.getElementById("totalAmount");
+      const payBtn = document.querySelector('#cartModal button:nth-of-type(1)');
+      const closeBtn = document.querySelector('#cartModal button:nth-of-type(2)');
     
-          setTimeout(() => {
-            document.getElementById('mainContent').scrollIntoView({ behavior:"smooth"});
-          }, 1000); 
-        }, 2000);
-      };
+      // Hide the Pay and Close buttons
+      payBtn.style.display = "none";
+      closeBtn.style.display = "none";
     
-      function addToCart(productName) {
-        const notification = document.getElementById('notification');
-        notification.textContent = productName + " added to cart!";
-        notification.classList.add('show');
-      
-        // 🎉 Confetti Animation
-        confetti({
-          particleCount: 1000,
-          spread: 700,
-          origin: { y: 0.1 }
-        });
-      
-        setTimeout(() => {
-          notification.classList.remove('show');
-        }, 3000);
-      }
-      
+      // Show success message
+      cartItemsDiv.innerHTML = "<h3 style='color:green;'>🎉 Order Placed Successfully!</h3>";
+      totalAmount.textContent = "";
+    
+      // Confetti celebration
+      confetti({
+        particleCount: 500,
+        spread: 360,
+        origin: { y: 0.4 }
+      });
+    
+      // Clear cart
+      //cart = [];
+    
+      setTimeout(() => {
+        closeCart();
+        payBtn.style.display = "inline-block";
+        closeBtn.style.display = "inline-block";
+      }, 3000);
+    }
+    
     
   </script>
+  
+  <div id="cartModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background-color: rgba(0,0,0,0.5); z-index:99999; justify-content:center; align-items:center;">
+    <div style="background:white; padding:30px; border-radius:20px; max-width:500px; width:90%; text-align:center; position:relative;">
+      <h2>Your Cart</h2>
+      <div id="cartItems" style="margin:20px 0; text-align:left;"></div>
+      <h3 id="totalAmount">Total: ₹0</h3>
+      <button onclick="fakePay()" style="padding: 10px 20px; background-color: green; color: white; border: none; border-radius: 8px; margin-right: 10px;">Pay Now</button>
+      <button onclick="closeCart()" style="padding: 10px 20px; background-color: red; color: white; border: none; border-radius: 8px;">Close</button>
+    </div>
+  </div>
+  
 </body>
 </html>
+
+
+
+
