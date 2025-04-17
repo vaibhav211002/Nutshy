@@ -181,6 +181,47 @@
         background-color: darkorange;
         transform: scale(1.05);
       }
+      @media (max-width: 768px) {
+        #cartModal > div {
+          width: 95% !important;
+          height: max-content;
+          overflow-y: auto;
+          padding: 20px;
+        }
+      
+        #cartItems {
+          font-size: 1rem;
+        }
+      
+        #cartModal button {
+          width: 100%;
+          margin: 10px 0 0 0 !important;
+        }
+      
+        #cartModal h2, #cartModal h3 {
+          font-size: 1.5rem;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        #cartModal > div {
+          height: 90vh;
+          padding: 15px;
+        }
+      
+        #cartModal h2 {
+          font-size: 1.3rem;
+        }
+      
+        #cartModal h3 {
+          font-size: 1.2rem;
+        }
+      
+        #cartItems {
+          font-size: 0.95rem;
+        }
+      }
+      
       
   </style>
 </head>
@@ -361,7 +402,6 @@
   
 </body>
 </html>
-
 
 
 
